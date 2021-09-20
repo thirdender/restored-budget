@@ -1,0 +1,62 @@
+// Form styles
+@import '~bootstrap/scss/vendor/rfs';
+@import '~bootstrap/scss/mixins/border-radius';
+@import '~bootstrap/scss/mixins/box-shadow';
+@import '~bootstrap/scss/mixins/transition';
+@import '~bootstrap/scss/mixins/gradients';
+@import '~bootstrap/scss/mixins/forms';
+@import '~bootstrap/scss/forms';
+$custom-checkbox-indicator-border-radius: 3px;
+$custom-control-indicator-border-color: #313131;
+$custom-control-indicator-bg: #313131;
+$custom-control-indicator-checked-border-color: #313131;
+$custom-control-indicator-checked-bg: #4b4b4b;
+$custom-control-indicator-focus-box-shadow: 0 0 0 0.2rem rgba(80, 80, 80, 0.25);
+$custom-control-indicator-focus-border-color: #222;
+$custom-control-indicator-active-border-color: #313131;
+$custom-control-indicator-active-bg: #313131;
+$custom-control-indicator-disabled-bg: #292928;
+$custom-control-indicator-checked-disabled-bg: #292928;
+
+.form-control {
+  box-sizing: border-box;
+}
+
+.form-actions {
+  margin-top: 1.6rem;
+  text-align: right;
+}
+
+// @import 'node_modules/bootstrap/scss/custom-forms';
+
+.custom-control-input {
+  &:checked ~ .custom-control-label::before {
+    border-color: #f9f9fa;
+    background-color: #dedee3;
+  }
+  &:focus ~ .custom-control-label::before {
+    box-shadow: 0 0 0 0.2rem rgba(142, 142, 215, 0.1);
+  }
+  &:focus:not(:checked) ~ .custom-control-label::before {
+    border-color: #eee;
+  }
+  &:not(:disabled):active ~ .custom-control-label::before {
+    background-color: #f9f9fa;
+    border-color: #f9f9fa;
+  }
+  &:disabled ~ .custom-control-label::before,
+  &:disabled:checked ~ .custom-control-label::before {
+    background-color: #e9ecef;
+  }
+}
+
+.custom-control-label {
+  &:before {
+    background-color: #f9f9fa;
+    border-color: #f9f9fa;
+  }
+}
+
+.form-check-label {
+  line-height: 1.5;
+}
