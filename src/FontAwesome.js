@@ -5,22 +5,13 @@ import '@fortawesome/fontawesome-svg-core/styles.css';
 import { config, library } from '@fortawesome/fontawesome-svg-core';
 
 import {
-  // faAddressCard,
-  faChevronRight,
-  faCircleNotch,
-  // faLock,
-  // faMoneyCheckAlt,
-  // faPlus,
-  // faQuestion,
-  // faSignOutAlt,
-  // faTimes,
-  // faTrash,
-  // faUser,
+  faHamburger,
+  faHome,
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
-  faChevronRight,
-  faCircleNotch,
+  faHamburger,
+  faHome,
 );
 
 // Prevent inline <style> tag

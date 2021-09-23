@@ -1,63 +1,64 @@
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './App.module.scss';
 
+const idCleanerRe = /[^\w\d-]/g;
+
+function Card({ title, titleIcon, rows }) {
+  return (
+    <form className="card">
+      <div className="card-body">
+        <h5 className="card-title">
+          <FontAwesomeIcon icon={titleIcon} className="me-2" />
+          {title}
+        </h5>
+        {rows.map((label) => {
+          const id = `${title}-${label}`.replace(idCleanerRe, '');
+          return (
+            <div className="row mt-4 mb-3">
+              <label htmlFor={id} className="col-sm-10 col-form-label">
+                {label}
+              </label>
+              <div className="col-sm-2">
+                <input type="number" className="form-control" id={id} />
+              </div>
+            </div>
+          );
+        })}
+        <div className="d-flex justify-content-end">
+          <a href="/" className="btn btn-success ms-2">
+            Create account
+          </a>
+          <button
+            type="submit"
+            className="btn btn-primary ms-2"
+          >
+            Sign in
+          </button>
+        </div>
+      </div>
+    </form>
+  );
+}
+
 function App() {
+  // Card component: https://getbootstrap.com/docs/5.0/components/card/
+  // Form layout: https://getbootstrap.com/docs/5.0/forms/layout/
   return (
     <div className={styles.App}>
-      <div className="container">
+      <h1 className="visually-hidden">Test Monkeys</h1>
+      <div className="container my-5">
         <div className="row">
-          <form className="col">
-            <div class="row mb-3">
-              <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-              <div class="col-sm-10">
-                <input type="email" class="form-control" id="inputEmail3" />
-              </div>
-            </div>
-            <div class="row mb-3">
-              <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
-              <div class="col-sm-10">
-                <input type="password" class="form-control" id="inputPassword3" />
-              </div>
-            </div>
-            <fieldset class="row mb-3">
-              <legend class="col-form-label col-sm-2 pt-0">Radios</legend>
-              <div class="col-sm-10">
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked />
-                  <label class="form-check-label" for="gridRadios1">
-                    First radio
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2" />
-                  <label class="form-check-label" for="gridRadios2">
-                    Second radio
-                  </label>
-                </div>
-                <div class="form-check disabled">
-                  <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3" disabled />
-                  <label class="form-check-label" for="gridRadios3">
-                    Third disabled radio
-                  </label>
-                </div>
-              </div>
-            </fieldset>
-            <div class="row mb-3">
-              <div class="col-sm-10 offset-sm-2">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="gridCheck1" />
-                  <label class="form-check-label" for="gridCheck1">
-                    Example checkbox
-                  </label>
-                </div>
-              </div>
-            </div>
-            <button type="submit" class="btn btn-primary">
-              Sign in
-              <FontAwesomeIcon icon={['fas', 'chevron-right']} className="ms-2" />
-            </button>
-          </form>
+          <div className="col">
+            <Card
+              titleIcon={['fas', 'home']}
+              title="Home"
+              rows={[
+                'Mortgage/Rent',
+                'Homeowner\'s/Renter\'s Insurance',
+              ]}
+            />
+          </div>
         </div>
       </div>
     </div>
