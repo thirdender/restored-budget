@@ -2,13 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
 import App from './App';
+import { TotalsContext } from './contexts';
 import reportWebVitals from './reportWebVitals';
 
 require('./FontAwesome');
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <TotalsContext.TotalsProvider>
+      <App />
+    </TotalsContext.TotalsProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

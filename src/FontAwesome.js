@@ -5,11 +5,13 @@ import '@fortawesome/fontawesome-svg-core/styles.css';
 import { config, library } from '@fortawesome/fontawesome-svg-core';
 
 import {
+  faCar,
   faHamburger,
   faHome,
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
+  faCar,
   faHamburger,
   faHome,
 );
