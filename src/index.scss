@@ -15,6 +15,13 @@
 // Import card styles
 @import '~bootstrap/scss/card';
 
+// Import navbar styles
+@import '~bootstrap/scss/navbar';
+.sticky-top {
+  position: sticky;
+  top: 0;
+}
+
 // // Import list group styles
 // @import '~bootstrap/scss/mixins/list-group';
 // @import '~bootstrap/scss/list-group';

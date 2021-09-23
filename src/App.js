@@ -11,30 +11,32 @@ function Card({ title, titleIcon, rows }) {
   const expenses = state.expenses[group] || {};
   const dispatch = useTotalsDispatch();
   return (
-    <div className="col-6 my-3">
+    <div className="col-lg-6 my-3">
       <form className="card">
-        <div className="card-body">
+        <div className="card-header">
           <h5 className="card-title">
             <div className="row">
-              <div className="col-sm-9">
+              <div className="col-9">
                 <FontAwesomeIcon icon={titleIcon} className="me-2" />
                 {title}
               </div>
-              <div className="col-sm-3">
+              <div className="col-3">
                 {'$'}
                 {Object.values(expenses).reduce((total, x) => total + x, 0).toLocaleString()}
               </div>
             </div>
           </h5>
+        </div>
+        <div className="card-body py-1">
           {rows.map((label) => {
             const name = label.replace(idCleanerRe, '');
             const id = `${group}-${name}`;
             return (
-              <div className="row mt-4 mb-3">
-                <label htmlFor={id} className="col-sm-9 col-form-label">
+              <div className="row my-2" key={name}>
+                <label htmlFor={id} className="col-sm-8 col-md-9 col-lg-8 col-xl-9 col-form-label">
                   {label}
                 </label>
-                <div className="col-sm-3">
+                <div className="col-sm-4 col-md-3 col-lg-4 col-xl-3">
                   <input
                     type="number"
                     className="form-control"
@@ -74,7 +76,19 @@ function App() {
   // Form layout: https://getbootstrap.com/docs/5.0/forms/layout/
   return (
     <div className={styles.App}>
-      <h1 className="visually-hidden">Test Monkeys</h1>
+      <nav className={`${styles.Nav} navbar sticky-top navbar-dark`}>
+        <div className="container">
+          <a className="navbar-brand me-auto" href="#">Personal Budget</a>
+          <form className="d-flex">
+            <input
+              className="form-control me-2"
+              placeholder="Income"
+              aria-label="Income"
+              type="number"
+            />
+          </form>
+        </div>
+      </nav>
       <div className="container my-5">
         <div className="row" data-masonry='{"percentPosition": true }'>
           <Card
@@ -121,7 +135,7 @@ function App() {
           <Card
             title="Generosity"
             key="generosity"
-            titleIcon={['fas', 'car']}
+            titleIcon={['fas', 'dove']}
             rows={[
               'Church Tithes/Ofering',
               'Charities',
@@ -132,7 +146,7 @@ function App() {
           <Card
             title="Medical/Health"
             key="medical"
-            titleIcon={['fas', 'car']}
+            titleIcon={['fas', 'medkit']}
             rows={[
               'Doctor\'s Bills/Co-Pays',
               'Medications',
@@ -143,7 +157,7 @@ function App() {
           <Card
             title="Personal Expenses"
             key="personal"
-            titleIcon={['fas', 'car']}
+            titleIcon={['fas', 'tshirt']}
             rows={[
               'Clothing',
               'Beauty/Barber',
@@ -159,7 +173,7 @@ function App() {
           <Card
             title="Family"
             key="family"
-            titleIcon={['fas', 'car']}
+            titleIcon={['fas', 'baby']}
             rows={[
               'Education/School Supplies',
               'Child Care/Babysitting',
@@ -171,7 +185,7 @@ function App() {
           <Card
             title="Investments"
             key="investments"
-            titleIcon={['fas', 'car']}
+            titleIcon={['fas', 'glasses']}
             rows={[
               'Savings',
               'Retirement',
@@ -182,7 +196,7 @@ function App() {
           <Card
             title="Debt"
             key="debt"
-            titleIcon={['fas', 'car']}
+            titleIcon={['fas', 'money-check-alt']}
             rows={[
               'Student Loans',
               'Credit Cards',

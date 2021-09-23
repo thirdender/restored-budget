@@ -5,15 +5,27 @@ import '@fortawesome/fontawesome-svg-core/styles.css';
 import { config, library } from '@fortawesome/fontawesome-svg-core';
 
 import {
+  faBaby,
   faCar,
+  faDove,
+  faGlasses,
   faHamburger,
   faHome,
+  faMedkit,
+  faMoneyCheckAlt,
+  faTshirt,
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
+  faBaby,
   faCar,
+  faDove,
+  faGlasses,
   faHamburger,
   faHome,
+  faMedkit,
+  faMoneyCheckAlt,
+  faTshirt,
 );
 
 // Prevent inline <style> tag
