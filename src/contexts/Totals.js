@@ -24,31 +24,50 @@ const reducer = (state, action) => {
       returnValue.expenses = action.expenses;
       break;
     }
+    case 'setMonthlyTakeHome': {
+      returnValue.monthlyTakeHome = action.value;
+      break;
+    }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
     }
   }
+  localStorage.setItem('budget', JSON.stringify({
+    monthlyTakeHome: returnValue.monthlyTakeHome,
+    expenses: returnValue.expenses,
+  }));
   return returnValue;
 }
 
 const TotalsProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, {
     expenses: {},
+    monthlyTakeHome: 0,
   });
 
   // Load saved values from localStorage once on page load
   useEffect(() => {
     try {
-      const expenses = JSON.parse(localStorage.getItem('expenses')) || {};
-      dispatch({ type: 'setExpenses', expenses });
+      const { expenses, monthlyTakeHome } = JSON.parse(localStorage.getItem('budget')) || {};
+      if (typeof expenses === 'object') {
+        dispatch({ type: 'setExpenses', expenses });
+      }
+      if (typeof monthlyTakeHome === 'number') {
+        dispatch({ type: 'setMonthlyTakeHome', value: monthlyTakeHome });
+      }
     } catch (e) {
-      console.log('Unable to load expenses from localStorage');
+      console.log('Unable to load budget from localStorage');
     }
   }, [dispatch]);
+
 
   return (
     <TotalsStateContext.Provider value={{
       ...state,
+      total: Object.values(state.expenses).reduce(
+        (total, group) => total + Object.values(group).reduce((total, x) => total + x, 0),
+        0,
+      ),
     }}>
       <TotalsDispatchContext.Provider value={dispatch}>
         {children}

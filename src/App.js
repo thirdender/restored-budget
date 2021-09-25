@@ -1,5 +1,9 @@
+import React, { useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Masonry from 'masonry-layout';
 import { TotalsContext } from './contexts';
+import Navbar from './Navbar';
+import Row from './Row';
 import styles from './App.module.scss';
 
 const idCleanerRe = /[^\w\d-]/g;
@@ -29,27 +33,21 @@ function Card({ title, titleIcon, rows }) {
         </div>
         <div className="card-body py-1">
           {rows.map((label) => {
-            const name = label.replace(idCleanerRe, '');
-            const id = `${group}-${name}`;
+            const key = label.replace(idCleanerRe, '');
+            const id = `${group}-${key}`;
             return (
-              <div className="row my-2" key={name}>
-                <label htmlFor={id} className="col-sm-8 col-md-9 col-lg-8 col-xl-9 col-form-label">
-                  {label}
-                </label>
-                <div className="col-sm-4 col-md-3 col-lg-4 col-xl-3">
-                  <input
-                    type="number"
-                    className="form-control"
-                    id={id}
-                    onChange={(e) => {
-                      const value = Number(e.target.value);
-                      if (!isNaN(value)) {
-                        dispatch({ type: 'setExpense', group, name, value });
-                      }
-                    }}
-                    />
-                </div>
-              </div>
+              <Row
+                label={label}
+                key={key}
+                id={id}
+                value={expenses[key]}
+                onChange={(e) => {
+                  const value = Number(e.target.value);
+                  if (!isNaN(value)) {
+                    dispatch({ type: 'setExpense', group, name: key, value });
+                  }
+                }}
+              />
             );
           })}
           {/*
@@ -74,23 +72,22 @@ function Card({ title, titleIcon, rows }) {
 function App() {
   // Card component: https://getbootstrap.com/docs/5.0/components/card/
   // Form layout: https://getbootstrap.com/docs/5.0/forms/layout/
+
+  // Initialize Masonry Layout to layout all the cards nice and neat
+  const elementMasonryGrid = useRef(null);
+  useEffect(() => {
+    if (elementMasonryGrid.current) {
+      new Masonry(elementMasonryGrid.current, {
+        percentPosition: true,
+      });
+    }
+  }, []);
+
   return (
     <div className={styles.App}>
-      <nav className={`${styles.Nav} navbar sticky-top navbar-dark`}>
-        <div className="container">
-          <a className="navbar-brand me-auto" href="#">Personal Budget</a>
-          <form className="d-flex">
-            <input
-              className="form-control me-2"
-              placeholder="Income"
-              aria-label="Income"
-              type="number"
-            />
-          </form>
-        </div>
-      </nav>
+      <Navbar />
       <div className="container my-5">
-        <div className="row" data-masonry='{"percentPosition": true }'>
+        <div ref={elementMasonryGrid} className="row">
           <Card
             title="Home"
             key="home"

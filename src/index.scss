@@ -22,6 +22,9 @@
   top: 0;
 }
 
+// Import styles needed for navbar-collapse
+@import '~bootstrap/scss/transitions';
+
 // // Import list group styles
 // @import '~bootstrap/scss/mixins/list-group';
 // @import '~bootstrap/scss/list-group';
